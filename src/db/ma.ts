@@ -9,7 +9,7 @@ export const userTable = pgTable("user", {
 export const categoryTable = pgTable("category", {
   id: uuid().primaryKey().defaultRandom(),
   name: text().notNull(),
-  slug: text().notNull().unique(),
+  slug: text().notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
@@ -23,7 +23,7 @@ export const productTable = pgTable("product", {
     .notNull()
     .references(() => categoryTable.id),
   name: text().notNull(),
-  slug: text().notNull().unique(),
+  slug: text().notNull(),
   description: text().notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
@@ -40,9 +40,9 @@ export const productVariantTable = pgTable("product_variant", {
   id: uuid().primaryKey().defaultRandom(),
   productId: uuid("product_id")
     .notNull()
-    .references(() => productTable.id),
+    .references(() => categoryTable.id),
   name: text().notNull(),
-  slug: text().notNull().unique(),
+  slug: text().notNull(),
   color: text().notNull(),
   priceInCents: integer("price_in_cents").notNull(),
   imageUrl: text("image_url").notNull(),
